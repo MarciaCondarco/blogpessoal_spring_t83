@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.model.Temas;
 import com.generation.blogpessoal.repository.TemasRepository;
 
@@ -44,7 +43,7 @@ public class TemasController {
 				.orElse(ResponseEntity.notFound().build()); 
 	}
 	
-	@GetMapping("/descricao/{descricao}") //mapeia a requisição do tipo get
+	@GetMapping("/descricao/{descricao}") 
 	public ResponseEntity<List<Temas>> getAllByDescricao(@PathVariable String descricao){ 
 		return ResponseEntity.ok(temasRepository.findAllByDescricaoContainingIgnoreCase(descricao)); 
 	}
