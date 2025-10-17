@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
+import com.generation.blogpessoal.repository.TemasRepository;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +31,9 @@ public class PostagemController {
 	
 	@Autowired 	 //spring faz a injeção de dependencia automaticamente 
 	private PostagemRepository postagemRepository;
+	
+	@Autowired
+	private TemasRepository temasRepository;
 	
 	@GetMapping //mapeia a requisição do tipo get
 	public ResponseEntity<List<Postagem>> getAll(){ //metodo para interface lIST para listar todas as postagens
@@ -58,23 +62,34 @@ public class PostagemController {
 	
 	@PostMapping //mapeia a requisição do tipo post
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
-		// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
-		// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
-		postagem.setId(null); //não dar erro no banco de dados
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
-		//returna 201 e o objeto que foi salvo no banco de dados e para salvar usa o metodo save
-		
+		if(temasRepository.existsById(postagem.getTemas().getId())) {
+			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
+			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
+			postagem.setId(null); //não dar erro no banco de dados
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
+			//returna 201 e o objeto que foi salvo no banco de dados e para salvar usa o metodo save
+		}
+
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O tema não existe", null);
 	}
 				
 	@PutMapping //mapeia a requisição do tipo put	
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
-			return postagemRepository.findById(postagem.getId())
-					.map(resposta -> ResponseEntity.status(HttpStatus.OK)
-							.body(postagemRepository.save(postagem))) 
-					//se encontrar o id, atualiza a postagem e retorna o status 200
-					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
-		//FAZ A BUSCA POR findById, SE ENCONTRAR ATUALIZA COM O METODO save, SE NAO ENCONTRAR RETORNA 404 not_found
+		
+		    if(postagemRepository.existsById(postagem.getId())){
+	    		if(temasRepository.existsById(postagem.getTemas().getId())) {
+	    			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
+	    			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
+	    			postagem.setId(null); //não dar erro no banco de dados
+	    			
+	    			return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
+	    			//returna 201 e o objeto que foi salvo no banco de dados e para salvar usa o metodo save
+	    		}
+	    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O tema não existe", null);
+		    }
+		    return ResponseEntity.notFound().build(); //se o id não existir, retorna 404
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT) //parametros de metodo se a exclusão der certo
