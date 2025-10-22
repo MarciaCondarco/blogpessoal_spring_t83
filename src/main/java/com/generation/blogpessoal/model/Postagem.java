@@ -37,9 +37,15 @@ public class Postagem {
 	@UpdateTimestamp //atualiza a data e hora sempre que houver uma alteração na postagem
 	private LocalDateTime data;
 	
+	
 	@ManyToOne //muitas postagens associadas para um tema
 	@JsonIgnoreProperties("postagem") //evita o loop infinito gerado po menyto one
 	private Temas temas;
+	
+	@ManyToOne //muitas postagens associadas para um tema
+	@JsonIgnoreProperties("postagem") //evita o loop infinito gerado po menyto one
+	private Usuario usuario;
+	
 	
 	public Long getId() {
 		return id;
@@ -71,5 +77,12 @@ public class Postagem {
 	public void setTemas(Temas temas) {
 		this.temas = temas;
 	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
+	
 }
