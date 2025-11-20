@@ -31,7 +31,7 @@ public class Postagem {
 	
 	@Column(length = 1000)
 	@NotBlank(message = "o atributo texto é obriagatorio") //not null
-	@Size(min = 10, max = 1000, message = "o atributo texto deve conter no minimo 10 e no maximo 1000 caracteres")
+	@Size(min = 3, max = 1000, message = "o atributo texto deve conter no minimo 10 e no maximo 1000 caracteres")
 	private String texto;
 	
 	@UpdateTimestamp //atualiza a data e hora sempre que houver uma alteração na postagem
