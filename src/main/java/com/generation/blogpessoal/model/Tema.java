@@ -17,8 +17,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_temas")
-public class Temas {
+@Table(name = "tb_tema")
+public class Tema {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,11 +28,11 @@ public class Temas {
 	@Size(min = 10 , max = 100, message = "atributo com tamanho de minimo 10 a maximo 100")
 	private String descricao;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "temas", cascade = CascadeType.REMOVE) 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE) 
 	//FETCH - > CARREGAMENTO DE DADOS preguiçoso , melhoar a performace
 	//mappedby -> indica a chave estrangeira
 	//
-	@JsonIgnoreProperties(value = "temas", allowSetters = true)//allowsetters permite que metodos set sejam considerados 
+	@JsonIgnoreProperties(value = "tema", allowSetters = true)//allowsetters permite que metodos set sejam considerados 
 	//durante o momento que o json for gerados e os metodos get serão 
 	//ignorados para evitar o loop infinito
 	private List<Postagem> postagem;

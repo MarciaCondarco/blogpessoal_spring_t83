@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
-import com.generation.blogpessoal.repository.TemasRepository;
+import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
@@ -33,7 +33,7 @@ public class PostagemController {
 	private PostagemRepository postagemRepository;
 	
 	@Autowired
-	private TemasRepository temasRepository;
+	private TemaRepository temasRepository;
 	
 	@GetMapping //mapeia a requisição do tipo get
 	public ResponseEntity<List<Postagem>> getAll(){ //metodo para interface lIST para listar todas as postagens

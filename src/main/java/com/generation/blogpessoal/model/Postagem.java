@@ -40,7 +40,7 @@ public class Postagem {
 	
 	@ManyToOne //muitas postagens associadas para um tema
 	@JsonIgnoreProperties("postagem") //evita o loop infinito gerado po menyto one
-	private Temas temas;
+	private Tema tema;
 	
 	@ManyToOne //muitas postagens associadas para um tema
 	@JsonIgnoreProperties("postagem") //evita o loop infinito gerado po menyto one
@@ -71,11 +71,11 @@ public class Postagem {
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
-	public Temas getTemas() {
-		return temas;
+	public Tema getTemas() {
+		return tema;
 	}
-	public void setTemas(Temas temas) {
-		this.temas = temas;
+	public void setTemas(Tema temas) {
+		this.tema = temas;
 	}
 	public Usuario getUsuario() {
 		return usuario;
