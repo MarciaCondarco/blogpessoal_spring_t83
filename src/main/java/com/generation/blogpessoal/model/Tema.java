@@ -25,7 +25,7 @@ public class Tema {
 	
 	@Column(length = 100)
 	@NotBlank(message = "O atributo tema é obrigatorio")
-	@Size(min = 10 , max = 100, message = "atributo com tamanho de minimo 10 a maximo 100")
+	@Size(min = 3 , max = 100, message = "atributo com tamanho de minimo 10 a maximo 100")
 	private String descricao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE) 
