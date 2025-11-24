@@ -63,7 +63,7 @@ public class PostagemController {
 	@PostMapping //mapeia a requisição do tipo post
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
 		
-		if(temasRepository.existsById(postagem.getTemas().getId())) {
+		if(temasRepository.existsById(postagem.getTema().getId())) {
 			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
 			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
 			postagem.setId(null); //não dar erro no banco de dados
@@ -79,7 +79,7 @@ public class PostagemController {
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
 		
 		    if(postagemRepository.existsById(postagem.getId())){
-	    		if(temasRepository.existsById(postagem.getTemas().getId())) {
+	    		if(temasRepository.existsById(postagem.getTema().getId())) {
 	    			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
 	    			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
 	    			postagem.setId(null); //não dar erro no banco de dados
