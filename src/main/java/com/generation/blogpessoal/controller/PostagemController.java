@@ -33,7 +33,7 @@ public class PostagemController {
 	private PostagemRepository postagemRepository;
 	
 	@Autowired
-	private TemaRepository temasRepository;
+	private TemaRepository temaRepository;
 	
 	@GetMapping //mapeia a requisição do tipo get
 	public ResponseEntity<List<Postagem>> getAll(){ //metodo para interface lIST para listar todas as postagens
@@ -63,7 +63,7 @@ public class PostagemController {
 	@PostMapping //mapeia a requisição do tipo post
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
 		
-		if(temasRepository.existsById(postagem.getTema().getId())) {
+		if(temaRepository.existsById(postagem.getTema().getId())) {
 			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
 			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
 			postagem.setId(null); //não dar erro no banco de dados
@@ -79,12 +79,12 @@ public class PostagemController {
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
 		
 		    if(postagemRepository.existsById(postagem.getId())){
-	    		if(temasRepository.existsById(postagem.getTema().getId())) {
+	    		if(temaRepository.existsById(postagem.getTema().getId())) {
 	    			// @RequestBody -> informa que o parametro postagem vem do corpo da requisição
 	    			// @Valid -> valida o objeto postagem conforme as anotações da classe postagem
-	    			postagem.setId(null); //não dar erro no banco de dados
+
 	    			
-	    			return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
+	    			return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
 	    			//returna 201 e o objeto que foi salvo no banco de dados e para salvar usa o metodo save
 	    		}
 	    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O tema não existe", null);
