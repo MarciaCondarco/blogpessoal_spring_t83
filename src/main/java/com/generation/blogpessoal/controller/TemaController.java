@@ -30,45 +30,45 @@ import jakarta.validation.Valid;
 public class TemaController {
 	
 	@Autowired
-	private TemaRepository temasRepository;
+	private TemaRepository temaRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Tema>> getAll(){
-		return ResponseEntity.ok(temasRepository.findAll());
+		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable Long id){
-		return temasRepository.findById(id)
+		return temaRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build()); 
 	}
 	
 	@GetMapping("/descricao/{descricao}") 
 	public ResponseEntity<List<Tema>> getAllByDescricao(@PathVariable String descricao){ 
-		return ResponseEntity.ok(temasRepository.findAllByDescricaoContainingIgnoreCase(descricao)); 
+		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao)); 
 	}
 	
 	@PostMapping
 	public ResponseEntity<Tema> post (@Valid @RequestBody Tema tema){
 		tema.setId(null);
-		return ResponseEntity.status(HttpStatus.CREATED).body(temasRepository.save(tema));
+		return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	@PutMapping 
 	public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema){
-			return temasRepository.findById(tema.getId())
+			return temaRepository.findById(tema.getId())
 					.map(resposta -> ResponseEntity.status(HttpStatus.OK)
-							.body(temasRepository.save(tema))) 
+							.body(temaRepository.save(tema))) 
 					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT) 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		Optional<Tema> tema = temasRepository.findById(id);
+		Optional<Tema> tema = temaRepository.findById(id);
 		
 		if(tema.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND); 
 		
-		temasRepository.deleteById(id); 
+		temaRepository.deleteById(id); 
 	}
 }

@@ -71,10 +71,10 @@ public class Postagem {
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
-	public Tema getTemas() {
+	public Tema getTema() {
 		return tema;
 	}
-	public void setTemas(Tema tema) {
+	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
 	public Usuario getUsuario() {
