@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/tema")
+@RequestMapping("/temas")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TemaController {
 	
@@ -49,24 +49,24 @@ public class TemaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> post (@Valid @RequestBody Tema temas){
-		temas.setId(null);
-		return ResponseEntity.status(HttpStatus.CREATED).body(temasRepository.save(temas));
+	public ResponseEntity<Tema> post (@Valid @RequestBody Tema tema){
+		tema.setId(null);
+		return ResponseEntity.status(HttpStatus.CREATED).body(temasRepository.save(tema));
 	}
 	@PutMapping 
-	public ResponseEntity<Tema> put(@Valid @RequestBody Tema temas){
-			return temasRepository.findById(temas.getId())
+	public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema){
+			return temasRepository.findById(tema.getId())
 					.map(resposta -> ResponseEntity.status(HttpStatus.OK)
-							.body(temasRepository.save(temas))) 
+							.body(temasRepository.save(tema))) 
 					.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT) 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		Optional<Tema> temas = temasRepository.findById(id);
+		Optional<Tema> tema = temasRepository.findById(id);
 		
-		if(temas.isEmpty())
+		if(tema.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND); 
 		
 		temasRepository.deleteById(id); 

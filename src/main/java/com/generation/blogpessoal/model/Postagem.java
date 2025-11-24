@@ -74,8 +74,8 @@ public class Postagem {
 	public Tema getTemas() {
 		return tema;
 	}
-	public void setTemas(Tema temas) {
-		this.tema = temas;
+	public void setTemas(Tema tema) {
+		this.tema = tema;
 	}
 	public Usuario getUsuario() {
 		return usuario;
